@@ -9,15 +9,16 @@
 <body>
 <div style='text-align:center;padding:0.7em'><h1>西南大学网上书店</h1></div>
 <div style='text-align:center;padding:0.7em'>
-  <span class='menu'><a href='./add.html'>添 加</a></span>
+  <span class='menu'><a href='./bar.html'>首 页</a></span>
+  <span class='menu'><a href='./login.html'>添 加</a></span>
   <span class='menu'><a href='./listBook'>管理</a></span>
   <span class='menu'><a href='./logout'>退出</a></span>
 </div>
 <center>
   <br>
-  <form action="./sql" method="POST" ><!--enctype="multipart/form-data">-->
+  <form action="./addBook" method="POST" ><!--enctype="multipart/form-data">-->
     <table style='background-color:#dddddd;padding:2em'>
-      <tr><td>书 名:</td><td><input type='text' name=name value='ASD'></td></tr>
+      <tr><td>书 名:</td><td><input type='text' name=name value=''></td></tr>
       <tr><td>作者:</td><td><input type='text' name=author  value=''></td></tr>
       <tr><td>价格: </td><td><input type='text' name=price  value=''></td></tr>
       <tr><td>类别: </td><td>
@@ -35,20 +36,6 @@
   </form>
   </div>
 </center>
-<script type="text/javascript">
-   $('#sender').click(function () {              //点击按钮触发
-       var name=document.getElementById("name").value;
-       var film=document.getElementById("film").value;
-       var role={"name":name,"film":film};            //新建一个json对象
-       var url="submitServlet";
 
-       $.post(
-           url,
-           {"data":JSON.stringify(role)},
-           function(data) {
-               alert("提交成功，请在Tomcat控制台查看服务端接收到的数据");
-           });
-   });
-</script>
 </body>
 </html>

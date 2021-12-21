@@ -32,7 +32,7 @@ public class SQLServlet  extends HelloServlet {
         String code = request.getParameter("code");
 
         String sql = String.format(INSERT_TEMPLATE, name, author, price, type, describe);
-        //System.out.println(sql);
+        System.out.println(sql);
         PrintWriter uu = response.getWriter();
         uu.println("<center>");
         uu.println("<h1>" + sql + "</h1>");

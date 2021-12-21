@@ -11,7 +11,7 @@ public class AddBookServlet extends HttpServlet {
 
     private static final String INSERT_TEMPLATE =
             "INSERT INTO books (`name`, `author`, `price`, `type`, `describe`) " +
-                    "VALUES ('%s', '%s', %s, '%s', '%s')";
+                    "VALUES ('%s', '%s', %s, '%s', '%s');";
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         this.doPost(request, response);
@@ -30,9 +30,10 @@ public class AddBookServlet extends HttpServlet {
 
         try {
             DBUtils.insert(sql);
-            response.sendRedirect("login.html");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        response.sendRedirect("login.html");
     }
 }

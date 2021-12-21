@@ -17,19 +17,22 @@ public class ListBookServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String sql = "SELECT * FROM books ORDER BY id DESC";
+        String sql = "SELECT * FROM books ORDER BY id DESC;";
+
+        List<Book> books = null;
         try {
-            List<Book> books = DBUtils.getBooks(sql);
-            try (Writer writer = response.getWriter()) {
-                StringBuilder sb = new StringBuilder();//写网页主体
-                sb.append(PageUtils.getAdminHeader());
-                sb.append(toHtmlTable(books));
-                sb.append(PageUtils.getEnd());
-                writer.write(sb.toString());
-            }
+            books = DBUtils.getBooks(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println(books.get(0).getAuthor());
+
+        Writer writer = response.getWriter();
+        StringBuilder sb = new StringBuilder();//写网页主体
+        sb.append(PageUtils.getAdminHeader());
+        sb.append(toHtmlTable(books));
+        sb.append(PageUtils.getEnd());
+        writer.write(sb.toString());
     }
 
     private String toHtmlTable(List<Book> books) {
@@ -53,7 +56,8 @@ public class ListBookServlet extends HttpServlet {
             sb.append("<td>").append(book.getType()).append("</td>");
             sb.append("<td>").append(book.getPrice()).append("</td>");
             sb.append("<td>").append(book.getDescribe()).append("</td>");
-            sb.append("<td><img width='100px' src='/myapp/upload/").append(book.getPics().replaceAll(",", "")).append("'></img></td>");
+            //下面这行src是要在弄一下的
+            //sb.append("<td><img width='100px' src='/").append(book.getPics().replaceAll(",", "")).append("'></img></td>");
             sb.append("<td>").append(
                     String.format("<a href='./editBook?id=%s'>修改</a>", book.getId())
             ).append("</td>");
